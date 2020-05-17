@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+	<title>game</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
+    <style>
+        body{
+
+            font-weight: bold;
+            font-family:Poppins, sans-serif ;
+
+        }
+        #shape{
+
+            display: none;
+            position: relative;
+
+        }
+        #span ,#short {
+
+            margin: 20px;
+            margin-bottom: 20px;
+            font-weight: bolder;
+            font-size: larger;
+            color: darkorange;
+        }
+    </style>
+
+</head>
+<body>
+ <h1>Test Your Reactions!</h1>
+ <p>Click on the Boxes and Circles as quickly as possible</p>
+<P>Your time: <span id="span"></span> </P>
+ <P>Your Shortest time: <span id="short"></span></P>
+<div id="shape"></div>
+
+   <script>
+        var starttime= new Date().getTime();
+
+      function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+       function makeshape()
+       {
+           if (Math.random()>0.5) {
+               document.getElementById("shape").style.borderRadius = "50%";
+           }
+           else
+           {
+               document.getElementById("shape").style.borderRadius="0";
+           }
+           var topr=Math.random()*400;
+           var botr=Math.random()*400;
+           var height=(Math.random()*200)+100;
+           document.getElementById("shape").style.top=topr+"px";
+           document.getElementById("shape").style.left=botr+"px";
+           document.getElementById("shape").style.height=height+"px";
+           document.getElementById("shape").style.width=height+"px";
+           document.getElementById("shape").style.backgroundColor=getRandomColor();
+           document.getElementById("shape").style.display="block";
+           starttime= new Date().getTime();
+
+       }
+       function showafterdelay(){
+
+            setTimeout(makeshape,Math.random()*2000);
+
+       }
+       showafterdelay();
+       var min;
+       var arrshort=[];
+       document.getElementById("shape").onclick=function ()
+       {
+         var endtime= new Date().getTime();
+         var final= (endtime-starttime)/1000;
+         arrshort.push(final);
+         min=arrshort[0];
+         for (var i=0;i<arrshort.length;i++)
+         {
+             if (arrshort[i]<min)
+             {
+                 min=arrshort[i];
+             }
+         }
+       document.getElementById("shape").style.display="none";
+       document.getElementById("span").innerHTML=final +"s";
+       document.getElementById("short").innerText=min+"s";
+       showafterdelay();
+
+   }
+
+   </script>
+
+</body>
+</html>
